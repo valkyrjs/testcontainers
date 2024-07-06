@@ -1,5 +1,5 @@
 import { Request, type RequestMethod } from "./request.ts";
-import { type Response } from "./response.ts";
+import type { Response } from "./response.ts";
 
 export class Client {
   constructor(readonly options: Deno.ConnectOptions | Deno.UnixConnectOptions) {}

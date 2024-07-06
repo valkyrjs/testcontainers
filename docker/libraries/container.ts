@@ -1,4 +1,4 @@
-import { CreateExecOptions, Exec } from "./exec.ts";
+import { type CreateExecOptions, Exec } from "./exec.ts";
 import { modem } from "./modem.ts";
 
 export class Container {
@@ -55,7 +55,7 @@ export class Container {
    *
    * @see https://docs.docker.com/engine/api/v1.45/#tag/Container/operation/ContainerInspect
    */
-  async inspect() {
+  async inspect(): Promise<Record<string, never>> {
     return modem.get({ path: `/containers/${this.id}/json` });
   }
 
@@ -91,7 +91,7 @@ export class Container {
    * @param cmd  - Command to run.
    * @param opts - Options for the command.
    */
-  async exec(cmd: string | string[], opts: Partial<CreateExecOptions> = {}) {
+  async exec(cmd: string | string[], opts: Partial<CreateExecOptions> = {}): Promise<void> {
     const { Id } = await modem.post<{ Id: string }>({
       path: `/containers/${this.id}/exec`,
       body: {
@@ -101,7 +101,7 @@ export class Container {
         AttachStderr: true,
       },
     });
-    return new Exec(Id).start();
+    await new Exec(Id).start();
   }
 }
 

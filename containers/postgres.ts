@@ -2,7 +2,7 @@ import delay from "delay";
 import getPort from "port";
 import psql, { type Sql } from "postgres";
 
-import { Container } from "../docker/libraries/container.ts";
+import type { Container } from "../docker/libraries/container.ts";
 import { docker } from "../docker/mod.ts";
 
 export class PostgresTestContainer {
@@ -33,7 +33,7 @@ export class PostgresTestContainer {
   /**
    * Execute a command in the Postgres container.
    */
-  get exec() {
+  get exec(): typeof this.container.exec {
     return this.container.exec.bind(this.container);
   }
 
