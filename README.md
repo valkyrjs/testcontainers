@@ -5,3 +5,18 @@
 # Test Containers
 
 Test container solution for running third party solutions through docker.
+
+## Quick Start
+
+```ts
+import { PostgresTestContainer } from "@valkyr/testcontainers/postgres";
+
+const container = await PostgresTestContainer.start("postgres:16");
+
+await container.create("db");
+await container.client("db")`SELECT 1`;
+
+console.log(container.url("db")); // => postgres://postgres:postgres@127.0.0.1:5432/db
+
+await container.stop();
+```
