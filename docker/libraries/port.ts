@@ -4,7 +4,7 @@ export const MAX_PORT = 65535;
 /**
  * Try run listener to check if port is open.
  *
- * @param options
+ * @param options - Deno listen options.
  */
 export function checkPort(options: Deno.ListenOptions): CheckedPort {
   const { port } = options;
@@ -45,7 +45,7 @@ export function makeRange(from: number, to: number): number[] {
 /**
  * Return a random port between 1024 and 65535.
  *
- * @param hostname
+ * @param hostname - Hostname to check for port availability under. (Optional)
  */
 export function randomPort(hostname?: string): number {
   const port = Math.ceil(Math.random() * ((MAX_PORT - 1) - MIN_PORT + 1) + MIN_PORT + 1);
@@ -59,8 +59,8 @@ export function randomPort(hostname?: string): number {
 /**
  * Return available port.
  *
- * @param port
- * @param hostname
+ * @param port     - Wanted port, or list of ports. (Optional)
+ * @param hostname - Hostname to check for availability under. (Optional)
  */
 export default function getPort(port?: number | number[], hostname?: string): number {
   const listenOptions: Deno.ListenOptions = {
