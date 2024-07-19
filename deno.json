@@ -7,8 +7,6 @@
   },
   "imports": {
     "std/": "https://deno.land/std@0.224.0/",
-    "delay": "npm:delay@6.0.0",
-    "port": "https://deno.land/x/getport@v2.1.2/mod.ts",
     "postgres": "npm:postgres@3.4.4"
   },
   "exclude": [

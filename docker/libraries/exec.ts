@@ -1,4 +1,4 @@
-import delay from "delay";
+import { delay } from "std/async/delay.ts";
 
 import { modem } from "./modem.ts";
 
