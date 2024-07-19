@@ -1,5 +1,5 @@
-import { assertArrayIncludes } from "std/assert/mod.ts";
-import { afterAll, describe, it } from "std/testing/bdd.ts";
+import { assertArrayIncludes } from "@std/assert";
+import { afterAll, describe, it } from "@std/testing/bdd";
 
 import { PostgresTestContainer } from "../containers/postgres.ts";
 

@@ -18,8 +18,8 @@
  * ```
  */
 
+import { delay } from "@std/async/delay";
 import psql, { type Sql } from "postgres";
-import { delay } from "std/async/delay.ts";
 
 import type { Container } from "../docker/libraries/container.ts";
 import getPort from "../docker/libraries/port.ts";
