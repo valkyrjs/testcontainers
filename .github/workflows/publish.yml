@@ -2,11 +2,6 @@ name: Publish
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - main
-    paths:
-      - "deno.json"
 
 jobs:
   test:
@@ -23,6 +18,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+
+      - name: Setup Deno
+        uses: maximousblk/setup-deno@v2
 
       - name: Setup Node.JS
         uses: actions/setup-node@v4
