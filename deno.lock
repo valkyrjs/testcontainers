@@ -3,16 +3,11 @@
   "packages": {
     "specifiers": {
       "npm:delay@6.0.0": "npm:delay@6.0.0",
-      "npm:get-port@7.1.0": "npm:get-port@7.1.0",
       "npm:postgres@3.4.4": "npm:postgres@3.4.4"
     },
     "npm": {
       "delay@6.0.0": {
         "integrity": "sha512-2NJozoOHQ4NuZuVIr5CWd0iiLVIRSDepakaovIN+9eIDHEhdCAEvSy2cuf1DCrPPQLvHmbqTHODlhHg8UCy4zw==",
-        "dependencies": {}
-      },
-      "get-port@7.1.0": {
-        "integrity": "sha512-QB9NKEeDg3xxVwCCwJQ9+xycaz6pBB6iQ76wiWMl1927n0Kir6alPiP+yuiICLLU4jpMe08dXfpebuQppFA2zw==",
         "dependencies": {}
       },
       "postgres@3.4.4": {
@@ -56,12 +51,12 @@
     "https://deno.land/std@0.224.0/internal/format.ts": "0a98ee226fd3d43450245b1844b47003419d34d210fa989900861c79820d21c2",
     "https://deno.land/std@0.224.0/internal/mod.ts": "534125398c8e7426183e12dc255bb635d94e06d0f93c60a297723abe69d3b22e",
     "https://deno.land/std@0.224.0/testing/_test_suite.ts": "f10a8a6338b60c403f07a76f3f46bdc9f1e1a820c0a1decddeb2949f7a8a0546",
-    "https://deno.land/std@0.224.0/testing/bdd.ts": "3e4de4ff6d8f348b5574661cef9501b442046a59079e201b849d0e74120d476b"
+    "https://deno.land/std@0.224.0/testing/bdd.ts": "3e4de4ff6d8f348b5574661cef9501b442046a59079e201b849d0e74120d476b",
+    "https://deno.land/x/getport@v2.1.2/mod.ts": "e1d629c14008fc1da85278615c55e9356c206d35054577c49639248e3c036f17"
   },
   "workspace": {
     "dependencies": [
       "npm:delay@6.0.0",
-      "npm:get-port@7.1.0",
       "npm:postgres@3.4.4"
     ]
   }

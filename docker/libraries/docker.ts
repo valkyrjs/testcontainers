@@ -3,20 +3,6 @@ import { Container } from "./container.ts";
 import { Image } from "./image.ts";
 import { modem } from "./modem.ts";
 
-/**
- * @module
- *
- * A simple wrapper for pulling a docker image, and creating docker containers.
- *
- * @example
- * ```ts
- * import { docker } from "@valkyr/testcontainers";
- *
- * await docker.pullImage("docker:image");
- *
- * const container = await docker.createContainer({ Image: "docker:image" });
- * ```
- */
 export class Docker {
   /**
    * Create a new docker container.

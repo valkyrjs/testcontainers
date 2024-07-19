@@ -1,10 +1,3 @@
-import delay from "delay";
-import getPort from "port";
-import psql, { type Sql } from "postgres";
-
-import type { Container } from "../docker/libraries/container.ts";
-import { docker } from "../mod.ts";
-
 /**
  * @module
  *
@@ -24,6 +17,14 @@ import { docker } from "../mod.ts";
  * await container.stop();
  * ```
  */
+
+import delay from "delay";
+import getPort from "port";
+import psql, { type Sql } from "postgres";
+
+import type { Container } from "../docker/libraries/container.ts";
+import { docker } from "../mod.ts";
+
 export class PostgresTestContainer {
   private constructor(
     readonly container: Container,
@@ -68,7 +69,7 @@ export class PostgresTestContainer {
    * @param config - Options for the Postgres container.
    */
   static async start(image: string, config: Partial<Config> = {}): Promise<PostgresTestContainer> {
-    const port = await getPort();
+    const port = getPort();
     if (port === undefined) {
       throw new Error("Unable to assign to a random port");
     }
