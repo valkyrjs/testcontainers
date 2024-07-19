@@ -1,3 +1,4 @@
+import type { Response } from "../../http/mod.ts";
 import { type CreateExecOptions, Exec } from "./exec.ts";
 import { modem } from "./modem.ts";
 
@@ -74,7 +75,7 @@ export class Container {
     until?: number;
     timestamps?: boolean;
     tail?: number | "all";
-  } = {}) {
+  } = {}): Promise<Response> {
     return modem.request({ method: "GET", path: `/containers/${this.id}/logs`, query });
   }
 

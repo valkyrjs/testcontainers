@@ -2,7 +2,7 @@ import { PROTOCOL } from "./common.ts";
 
 export class Response {
   status: number = 500;
-  headers = new Map<string, string>();
+  headers: Map<string, string> = new Map<string, string>();
   body = "";
 
   constructor(readonly connection: Deno.Conn) {}
@@ -44,7 +44,7 @@ export class Response {
   /**
    * Parsed JSON instance of the response body.
    */
-  get json() {
+  get json(): Record<string, unknown> {
     if (this.body === "") {
       return {};
     }
