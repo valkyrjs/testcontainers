@@ -64,23 +64,18 @@ export class Container {
    *
    * @see https://docs.docker.com/engine/api/v1.45/#tag/Container/operation/ContainerLogs
    *
-   * @param handler - Function to handle each line of the logs.
+   * @param query - Query parameters to send to the request
    */
-  async logs(handler: (line: string) => true | void) {
-    const res = await modem.request({
-      method: "GET",
-      path: `/containers/${this.id}/logs`,
-      query: {
-        stdout: true,
-        follow: true,
-        tail: "all",
-      },
-    });
-    for await (const chunk of res.stream) {
-      if (handler(chunk) === true) {
-        break;
-      }
-    }
+  async logs(query: {
+    follow?: boolean;
+    stdout?: boolean;
+    stderr?: boolean;
+    since?: number;
+    until?: number;
+    timestamps?: boolean;
+    tail?: number | "all";
+  } = {}) {
+    return modem.request({ method: "GET", path: `/containers/${this.id}/logs`, query });
   }
 
   /**
@@ -102,6 +97,26 @@ export class Container {
       },
     });
     await new Exec(Id).start();
+  }
+
+  /**
+   * Waits for a specific log value to occur on the container within the given
+   * timeout limit.
+   *
+   * @param value   - Value to look for.
+   * @param timeout - Time limit producing an error if exceeded.
+   */
+  async waitForLog(value: string, timeout = 5_000): Promise<void> {
+    const response = await this.logs({ follow: true, stdout: true, stderr: true });
+    const timer = setTimeout(() => {
+      throw new Error("Timed out waiting for log result");
+    }, timeout);
+    for await (const chunk of response.stream) {
+      if (chunk.includes(value)) {
+        clearTimeout(timer);
+        break;
+      }
+    }
   }
 }
 

@@ -1,7 +1,7 @@
 import type { ContainerConfig } from "../types/container.ts";
-import { modem } from "./modem.ts";
 import { Container } from "./container.ts";
 import { Image } from "./image.ts";
+import { modem } from "./modem.ts";
 
 export class Docker {
   /**

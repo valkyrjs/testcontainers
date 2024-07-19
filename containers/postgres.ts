@@ -68,13 +68,9 @@ export class PostgresTestContainer {
     });
 
     await container.start();
-    await container.logs((line) => {
-      if (line.includes("init process complete")) {
-        return true;
-      }
-    });
+    await container.waitForLog("database system is ready");
 
-    await delay(1000);
+    await delay(250);
 
     return new PostgresTestContainer(container, port, {
       username: config.username ?? "postgres",

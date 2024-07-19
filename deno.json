@@ -1,6 +1,6 @@
 {
   "name": "@valkyr/testcontainers",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "exports": {
     "./postgres": "./containers/postgres.ts"
   },
@@ -25,6 +25,7 @@
     "lineWidth": 120
   },
   "tasks": {
+    "lint": "npx eslint -c .eslint/eslint.config.mjs .",
     "test": "export ENVIRONMENT=testing && deno test --allow-all --unstable-ffi"
   }
 }
