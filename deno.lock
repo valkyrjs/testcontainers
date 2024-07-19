@@ -5,7 +5,8 @@
       "jsr:@std/assert@^1.0.0": "jsr:@std/assert@1.0.0",
       "jsr:@std/async@1.0.0": "jsr:@std/async@1.0.0",
       "jsr:@std/internal@^1.0.1": "jsr:@std/internal@1.0.1",
-      "jsr:@std/testing@^0.225.3": "jsr:@std/testing@0.225.3",
+      "jsr:@std/net@0.224.5": "jsr:@std/net@0.224.5",
+      "jsr:@std/testing@0.225.3": "jsr:@std/testing@0.225.3",
       "npm:@types/node": "npm:@types/node@18.16.19",
       "npm:postgres@3.4.4": "npm:postgres@3.4.4"
     },
@@ -21,6 +22,9 @@
       },
       "@std/internal@1.0.1": {
         "integrity": "6f8c7544d06a11dd256c8d6ba54b11ed870aac6c5aeafff499892662c57673e6"
+      },
+      "@std/net@0.224.5": {
+        "integrity": "9c2ae90a5c3dc7771da5ae5e13b6f7d5d0b316c1954c5d53f2bfc1129fb757ff"
       },
       "@std/testing@0.225.3": {
         "integrity": "348c24d0479d44ab3dbb4f26170f242e19f24051b45935d4a9e7ca0ab7e37780"
@@ -79,7 +83,8 @@
     "dependencies": [
       "jsr:@std/assert@^1.0.0",
       "jsr:@std/async@1.0.0",
-      "jsr:@std/testing@^0.225.3",
+      "jsr:@std/net@0.224.5",
+      "jsr:@std/testing@0.225.3",
       "npm:postgres@3.4.4"
     ]
   }

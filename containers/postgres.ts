@@ -19,18 +19,27 @@
  */
 
 import { delay } from "@std/async/delay";
+import { getAvailablePort } from "@std/net";
 import psql, { type Sql } from "postgres";
 
 import type { Container } from "../docker/libraries/container.ts";
-import getPort from "../docker/libraries/port.ts";
 import { docker } from "../mod.ts";
 
+/**
+ * Provides a simplified utility layer for starting, operating, and shutting down a
+ * postgres docker container.
+ *
+ * Will automatically pull the requested docker image before starting the container.
+ */
 export class PostgresTestContainer {
+  readonly #connection: PostgresConnectionInfo;
+
   private constructor(
     readonly container: Container,
-    readonly port: number,
-    readonly config: Config,
-  ) {}
+    connection: PostgresConnectionInfo,
+  ) {
+    this.#connection = connection;
+  }
 
   /*
    |--------------------------------------------------------------------------------
@@ -39,15 +48,31 @@ export class PostgresTestContainer {
    */
 
   /**
-   * Connection info for the Postgres container.
+   * PostgreSQL container host.
    */
-  get connectionInfo(): PostgresConnectionInfo {
-    return {
-      host: "127.0.0.1",
-      port: this.port,
-      user: this.config.username,
-      pass: this.config.password,
-    };
+  get host(): string {
+    return this.#connection.host;
+  }
+
+  /**
+   * PostgreSQL container port.
+   */
+  get port(): number {
+    return this.#connection.port;
+  }
+
+  /**
+   * PostgreSQL username applied to the container.
+   */
+  get username(): string {
+    return this.#connection.user;
+  }
+
+  /**
+   * PostgreSQL password applied to the container.
+   */
+  get password(): string {
+    return this.#connection.pass;
   }
 
   /**
@@ -68,8 +93,8 @@ export class PostgresTestContainer {
    *
    * @param config - Options for the Postgres container.
    */
-  static async start(image: string, config: Partial<Config> = {}): Promise<PostgresTestContainer> {
-    const port = getPort();
+  static async start(image: string, config: Partial<PostgresConnectionInfo> = {}): Promise<PostgresTestContainer> {
+    const port = getAvailablePort({ preferredPort: config.port });
     if (port === undefined) {
       throw new Error("Unable to assign to a random port");
     }
@@ -78,7 +103,7 @@ export class PostgresTestContainer {
 
     const container = await docker.createContainer({
       Image: image,
-      Env: [`POSTGRES_USER=${config.username ?? "postgres"}`, `POSTGRES_PASSWORD=${config.password ?? "postgres"}`],
+      Env: [`POSTGRES_USER=${config.user ?? "postgres"}`, `POSTGRES_PASSWORD=${config.pass ?? "postgres"}`],
       ExposedPorts: {
         "5432/tcp": {},
       },
@@ -92,9 +117,11 @@ export class PostgresTestContainer {
 
     await delay(250);
 
-    return new PostgresTestContainer(container, port, {
-      username: config.username ?? "postgres",
-      password: config.password ?? "postgres",
+    return new PostgresTestContainer(container, {
+      host: config.host ?? "127.0.0.1",
+      port,
+      user: config.user ?? "postgres",
+      pass: config.pass ?? "postgres",
     });
   }
 
@@ -117,7 +144,7 @@ export class PostgresTestContainer {
    * @param name - Name of the database to create.
    */
   async create(name: string): Promise<void> {
-    await this.exec(["createdb", `--username=${this.config.username}`, name]);
+    await this.exec(["createdb", `--username=${this.username}`, name]);
   }
 
   /**
@@ -140,8 +167,10 @@ export class PostgresTestContainer {
    * @param name    - Name of the database to connect to.
    * @param options - Connection options to append to the URL.
    */
-  url(name: string, options?: PostgresConnectionOptions): string {
-    return getConnectionUrl({ ...this.connectionInfo, name, options });
+  url(name: string, options?: PostgresConnectionOptions): PostgresConnectionUrl {
+    return `postgres://${this.username}:${this.password}@${this.host}:${this.port}/${name}${
+      postgresOptionsToString(options)
+    }`;
   }
 }
 
@@ -150,12 +179,6 @@ export class PostgresTestContainer {
  | Utilities
  |--------------------------------------------------------------------------------
  */
-
-function getConnectionUrl(
-  { host, port, user, pass, name, options }: ConnectionUrlConfig,
-): PostgresConnectionUrl {
-  return `postgres://${user}:${pass}@${host}:${port}/${name}${postgresOptionsToString(options)}`;
-}
 
 function postgresOptionsToString(options?: PostgresConnectionOptions) {
   if (options === undefined) {
@@ -181,17 +204,7 @@ function assertPostgresOptionKey(key: string): asserts key is keyof PostgresConn
  |--------------------------------------------------------------------------------
  */
 
-type Config = {
-  username: string;
-  password: string;
-};
-
 type PostgresConnectionUrl = `postgres://${string}:${string}@${string}:${number}/${string}`;
-
-type ConnectionUrlConfig = {
-  name: string;
-  options?: PostgresConnectionOptions;
-} & PostgresConnectionInfo;
 
 type PostgresConnectionOptions = {
   schema?: string;
