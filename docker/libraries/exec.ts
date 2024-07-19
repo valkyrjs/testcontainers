@@ -12,7 +12,7 @@ export class Exec {
    *
    * @param body - Request body schema.
    */
-  async start(body: Partial<StartSchema> = {}) {
+  async start(body: Partial<StartSchema> = {}): Promise<void> {
     await modem.post({ path: `/exec/${this.id}/start`, body });
     await this.#endSignal();
   }
@@ -20,7 +20,7 @@ export class Exec {
   /**
    * Return low-level information about the exec instance.
    */
-  async inspect() {
+  async inspect(): Promise<InspectResponse> {
     return modem.get<InspectResponse>({ path: `/exec/${this.id}/json` });
   }
 
@@ -37,7 +37,7 @@ export class Exec {
    * [TODO] Introduce a timeout signal in case we want to add a treshold to the
    * running time.
    */
-  async #endSignal() {
+  async #endSignal(): Promise<void> {
     while (true) {
       const info = await this.inspect();
       if (info.Running === false) {

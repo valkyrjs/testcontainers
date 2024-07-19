@@ -1,7 +1,10 @@
 import { Client, type Response } from "../../http/mod.ts";
 
 class Modem {
-  constructor(readonly options: Deno.ConnectOptions | Deno.UnixConnectOptions, readonly client = new Client(options)) {}
+  constructor(
+    readonly options: Deno.ConnectOptions | Deno.UnixConnectOptions,
+    readonly client: Client = new Client(options),
+  ) {}
 
   /**
    * Send a `POST` request to the Docker API.
@@ -59,7 +62,7 @@ class Modem {
   }
 }
 
-export const modem = new Modem({
+export const modem: Modem = new Modem({
   path: "/var/run/docker.sock",
   transport: "unix",
 });

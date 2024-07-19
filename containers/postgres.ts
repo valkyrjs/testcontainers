@@ -3,8 +3,27 @@ import getPort from "port";
 import psql, { type Sql } from "postgres";
 
 import type { Container } from "../docker/libraries/container.ts";
-import { docker } from "../docker/mod.ts";
+import { docker } from "../mod.ts";
 
+/**
+ * @module
+ *
+ * Provides the ability to quickly run a postgres image in a docker instance.
+ *
+ * @example
+ * ```ts
+ * import { PostgresTestContainer } from "@valkyr/testcontainers/postgres";
+ *
+ * const container = await PostgresTestContainer.start("postgres:16");
+ *
+ * await container.create("db");
+ * await container.client("db")`SELECT 1`;
+ *
+ * console.log(container.url("db")); // => postgres://postgres:postgres@127.0.0.1:5432/db
+ *
+ * await container.stop();
+ * ```
+ */
 export class PostgresTestContainer {
   private constructor(
     readonly container: Container,

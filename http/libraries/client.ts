@@ -11,7 +11,7 @@ export class Client {
    * closed when accessing the .stream on the response. Otherwise a manual .close must
    * be executed on the response to ensure that the connection is cleaned up.
    */
-  get connection() {
+  get connection(): Promise<Deno.UnixConn> | Promise<Deno.TcpConn> {
     if ("path" in this.options) {
       return Deno.connect(this.options);
     }

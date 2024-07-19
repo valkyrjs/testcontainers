@@ -1,7 +1,8 @@
 {
   "name": "@valkyr/testcontainers",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "exports": {
+    ".": "./mod.ts",
     "./postgres": "./containers/postgres.ts"
   },
   "imports": {
@@ -23,6 +24,15 @@
   },
   "fmt": {
     "lineWidth": 120
+  },
+  "publish": {
+    "exclude": [
+      ".eslint",
+      ".github",
+      ".vscode",
+      ".gitignore",
+      "tests"
+    ]
   },
   "tasks": {
     "lint": "deno lint && npx eslint -c .eslint/eslint.config.mjs .",
