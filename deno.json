@@ -1,34 +1,13 @@
 {
   "name": "@valkyr/testcontainers",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "exports": {
     ".": "./mod.ts",
+    "./mongodb": "./containers/mongodb.ts",
     "./postgres": "./containers/postgres.ts"
-  },
-  "imports": {
-    "@std/assert": "jsr:@std/assert@^1.0.0",
-    "@std/async": "jsr:@std/async@1.0.0",
-    "@std/net": "jsr:@std/net@0.224.5",
-    "@std/testing": "jsr:@std/testing@0.225.3",
-    "postgres": "npm:postgres@3.4.4"
-  },
-  "exclude": [
-    ".vscode"
-  ],
-  "lint": {
-    "rules": {
-      "exclude": [
-        "no-explicit-any",
-        "require-await"
-      ]
-    }
-  },
-  "fmt": {
-    "lineWidth": 120
   },
   "publish": {
     "exclude": [
-      ".eslint",
       ".github",
       ".vscode",
       ".gitignore",
@@ -36,7 +15,10 @@
     ]
   },
   "tasks": {
-    "lint": "deno lint && npx eslint -c .eslint/eslint.config.mjs .",
-    "test": "export ENVIRONMENT=testing && deno test --allow-all --unstable-ffi"
-  }
+    "lint": "npx eslint -c eslint.config.mjs .",
+    "test": "deno test --allow-all",
+    "test:publish": "deno publish --dry-run",
+    "ncu": "npx ncu -u -p npm"
+  },
+  "nodeModulesDir": "auto"
 }
