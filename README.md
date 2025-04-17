@@ -8,6 +8,10 @@ Test container solution for running third party solutions through docker.
 
 ## Quick Start
 
+We have quick start support for `postgres` and `mongodb`.
+
+### Postgres
+
 ```ts
 import { PostgresTestContainer } from "@valkyr/testcontainers/postgres";
 
@@ -17,6 +21,19 @@ await container.create("db");
 await container.client("db")`SELECT 1`;
 
 console.log(container.url("db")); // => postgres://postgres:postgres@127.0.0.1:5432/db
+
+await container.stop();
+```
+
+### MongoDB
+
+```ts
+import { MongoTestContainer } from "@valkyr/testcontainers/mongodb";
+
+const container = await MongoTestContainer.start();
+
+console.log(container.url()); // mongodb://user:pass@127.0.0.1:27017
+console.log(await container.client.db("admin").command({ ping: 1 })) // { ok: 1 }
 
 await container.stop();
 ```
