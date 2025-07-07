@@ -1,18 +1,18 @@
 {
   "dependencies": {
-    "@std/assert": "npm:@jsr/std__assert@1.0.12",
-    "@std/async": "npm:@jsr/std__async@1.0.12",
-    "@std/fs": "npm:@jsr/std__fs@1.0.16",
+    "@std/assert": "npm:@jsr/std__assert@1.0.13",
+    "@std/async": "npm:@jsr/std__async@1.0.13",
+    "@std/fs": "npm:@jsr/std__fs@1.0.19",
     "@std/net": "npm:@jsr/std__net@1.0.4",
-    "@std/testing": "npm:@jsr/std__testing@1.0.11"
+    "@std/testing": "npm:@jsr/std__testing@1.0.14"
   },
   "devDependencies": {
-    "eslint": "9.24.0",
+    "eslint": "9.30.1",
     "eslint-plugin-simple-import-sort": "12.1.1",
-    "mongodb": "6.15.0",
-    "postgres": "3.4.5",
-    "prettier": "3.5.3",
-    "typescript-eslint": "8.30.1"
+    "mongodb": "6.17.0",
+    "postgres": "3.4.7",
+    "prettier": "3.6.2",
+    "typescript-eslint": "8.35.1"
   },
   "peerDependencies": {
     "mongodb": "^6.0.0",
