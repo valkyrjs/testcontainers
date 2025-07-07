@@ -33,7 +33,7 @@ import { MongoTestContainer } from "@valkyr/testcontainers/mongodb";
 const container = await MongoTestContainer.start();
 
 console.log(container.url()); // mongodb://user:pass@127.0.0.1:27017
-console.log(await container.client.db("admin").command({ ping: 1 })) // { ok: 1 }
+console.log(await container.client.db("admin").command({ ping: 1 })); // { ok: 1 }
 
 await container.stop();
 ```

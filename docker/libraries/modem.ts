@@ -51,9 +51,13 @@ class Modem {
    * @param param.body    - Request body. _(Ignored for `GET` requests.)_
    * @param param.headers - Headers to send with the request.
    */
-  async request(
-    { method, path, query = {}, body, headers = {} }: { method: "POST" | "GET" | "DELETE" } & RequestOptions,
-  ): Promise<Response> {
+  async request({
+    method,
+    path,
+    query = {},
+    body,
+    headers = {},
+  }: { method: "POST" | "GET" | "DELETE" } & RequestOptions): Promise<Response> {
     return this.client.fetch(`http://docker${path}${toSearchParams(query)}`, {
       method,
       body,

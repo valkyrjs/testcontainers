@@ -70,15 +70,17 @@ export class Container {
    *
    * @param query - Query parameters to send to the request
    */
-  async logs(query: {
-    follow?: boolean;
-    stdout?: boolean;
-    stderr?: boolean;
-    since?: number;
-    until?: number;
-    timestamps?: boolean;
-    tail?: number | "all";
-  } = {}): Promise<Response> {
+  async logs(
+    query: {
+      follow?: boolean;
+      stdout?: boolean;
+      stderr?: boolean;
+      since?: number;
+      until?: number;
+      timestamps?: boolean;
+      tail?: number | "all";
+    } = {},
+  ): Promise<Response> {
     return modem.request({ method: "GET", path: `/containers/${this.id}/logs`, query });
   }
 

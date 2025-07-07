@@ -2,7 +2,10 @@ import { NEW_LINE, PROTOCOL } from "./common.ts";
 import { Response } from "./response.ts";
 
 export class Request {
-  constructor(readonly connection: Deno.Conn, readonly options: RequestOptions) {}
+  constructor(
+    readonly connection: Deno.Conn,
+    readonly options: RequestOptions,
+  ) {}
 
   async send(): Promise<Response> {
     const http = await this.encode(this.toHttp());
@@ -12,9 +15,7 @@ export class Request {
 
   toHttp() {
     const { method, path, headers = {}, body } = this.options;
-    const parts: string[] = [
-      `${method} ${path} ${PROTOCOL}`,
-    ];
+    const parts: string[] = [`${method} ${path} ${PROTOCOL}`];
     for (const key in headers) {
       parts.push(`${key}: ${(headers as any)[key]}`);
     }

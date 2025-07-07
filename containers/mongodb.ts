@@ -101,7 +101,10 @@ export class MongoTestContainer {
    * @param image  - Which docker image to run.
    * @param config - Configuration for the Mongo container.
    */
-  static async start(image: string = "mongo:8.0.3", config: Partial<MongoConnectionInfo> = {}): Promise<MongoTestContainer> {
+  static async start(
+    image: string = "mongo:8.0.3",
+    config: Partial<MongoConnectionInfo> = {},
+  ): Promise<MongoTestContainer> {
     const port = getAvailablePort({ preferredPort: config.port });
     if (port === undefined) {
       throw new Error("Unable to assign to a random port");
@@ -111,7 +114,10 @@ export class MongoTestContainer {
 
     const container = await docker.createContainer({
       Image: image,
-      Env: [`MONGO_INITDB_ROOT_USERNAME=${config.user ?? "root"}`, `MONGO_INITDB_ROOT_PASSWORD=${config.pass ?? "password"}`],
+      Env: [
+        `MONGO_INITDB_ROOT_USERNAME=${config.user ?? "root"}`,
+        `MONGO_INITDB_ROOT_PASSWORD=${config.pass ?? "password"}`,
+      ],
       ExposedPorts: {
         "27017/tcp": {},
       },

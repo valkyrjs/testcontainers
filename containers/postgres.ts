@@ -168,9 +168,9 @@ export class PostgresTestContainer {
    * @param options - Connection options to append to the URL.
    */
   url(name: string, options?: PostgresConnectionOptions): PostgresConnectionUrl {
-    return `postgres://${this.username}:${this.password}@${this.host}:${this.port}/${name}${
-      postgresOptionsToString(options)
-    }`;
+    return `postgres://${this.username}:${this.password}@${this.host}:${this.port}/${name}${postgresOptionsToString(
+      options,
+    )}`;
   }
 }
 

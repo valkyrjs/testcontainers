@@ -1,21 +1,17 @@
 {
   "name": "@valkyr/testcontainers",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "exports": {
     ".": "./mod.ts",
     "./mongodb": "./containers/mongodb.ts",
     "./postgres": "./containers/postgres.ts"
   },
   "publish": {
-    "exclude": [
-      ".github",
-      ".vscode",
-      ".gitignore",
-      "tests"
-    ]
+    "exclude": [".github", ".vscode", ".gitignore", "tests"]
   },
   "tasks": {
     "lint": "npx eslint -c eslint.config.mjs .",
+    "fmt": "npx prettier --write .",
     "test": "deno test --allow-all",
     "test:publish": "deno publish --dry-run",
     "ncu": "npx ncu -u -p npm"
